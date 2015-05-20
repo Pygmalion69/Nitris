@@ -1,0 +1,104 @@
+
+helfris.png
+size: 712,100
+format: RGBA8888
+filter: Nearest,Nearest
+repeat: none
+arrow_down
+  rotate: false
+  xy: 0, 0
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+arrow_left
+  rotate: false
+  xy: 102, 0
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+arrow_right
+  rotate: false
+  xy: 204, 0
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+arrow_rotate
+  rotate: false
+  xy: 306, 0
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+element_blue_square
+  rotate: false
+  xy: 612, 68
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+element_cyan_square
+  rotate: false
+  xy: 612, 34
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+element_green_square
+  rotate: false
+  xy: 646, 68
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+element_grey_square
+  rotate: false
+  xy: 612, 0
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+element_orange_square
+  rotate: false
+  xy: 646, 34
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+element_purple_square
+  rotate: false
+  xy: 680, 68
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+element_red_square
+  rotate: false
+  xy: 646, 0
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+element_yellow_square
+  rotate: false
+  xy: 680, 34
+  size: 32, 32
+  orig: 32, 32
+  offset: 0, 0
+  index: -1
+options
+  rotate: false
+  xy: 408, 0
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
+play
+  rotate: false
+  xy: 510, 0
+  size: 100, 100
+  orig: 100, 100
+  offset: 0, 0
+  index: -1
