@@ -82,7 +82,8 @@ public class Tetromino {
         this.type = type;
         this.falling = true;
 
-        delay = 800 - (gameWorld.level * 33);
+        //delay = 800 - (gameWorld.level * 33);
+        delay = (int) (800 * (Math.pow(.86, (double)gameWorld.level)));
         if (delay < 33) {
             delay = 33;
         }
