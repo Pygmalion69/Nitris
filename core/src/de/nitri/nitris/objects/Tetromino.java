@@ -1,7 +1,6 @@
 package de.nitri.nitris.objects;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import java.util.Arrays;
 
@@ -21,7 +20,6 @@ public class Tetromino {
     public final static int Z = 5;
     public final static int J = 6;
     public final static int L = 7;
-    private static Tetromino _instance;
 
     public int type;
 
@@ -56,18 +54,8 @@ public class Tetromino {
             {true, true, true},
             {false, false, false}};
 
-    public TextureRegion[][] blockTextureRegions;
-
     public boolean[][] grid;
 
-    private boolean[][] rotatedGrid;
-
-    private boolean[][] rotatedGrid3 = new boolean[3][3];
-
-    private boolean[][] rotatedGrid4 = new boolean[4][4];
-
-    private int oldPosX;
-    private int oldPosY;
     public int posX;
     public int posY;
     private GameWorld gameWorld;
@@ -81,14 +69,6 @@ public class Tetromino {
     private boolean falling;
 
     public int delay = 800;
-
-    public long getLastFallTime() {
-        return lastFallTime;
-    }
-
-    public void setLastFallTime(long lastFallTime) {
-        this.lastFallTime = lastFallTime;
-    }
 
     public long lastFallTime;
 
@@ -142,26 +122,6 @@ public class Tetromino {
         posX = gameWorld.playfield[0].length / 2 - grid[0].length / 2;
         if (grid[0].length < 4) posX--;
         posY = 0;
-/*
-        blockTextureRegions = new TextureRegion[grid.length][grid[0].length];
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[0].length; j++) {
-                if (grid[i][j]) {
-                    switch (type) {
-                        case I:
-                            blockTextureRegions[i][j] = Assets.instance.tetromino.elementCyanSquare;
-                            break;
-                        case O:
-                            blockTextureRegions[i][j] = Assets.instance.tetromino.elementYellowSquare;
-                            break;
-                        case J:
-                            blockTextureRegions[i][j] = Assets.instance.tetromino.elementBlueSquare;
-                            break;
-                    }
-                }
-            }
-        }
-        */
     }
 
     public void fall(boolean force) {
@@ -222,21 +182,13 @@ public class Tetromino {
     }
 
     public synchronized void rotate() {
-        //Gdx.app.debug(TAG, "rotate");
         if (grid.length == grid[0].length) {
-            // rotatable
             int size = grid.length;
-/*            if (size == 4)
-                rotatedGrid = Arrays.copyOf(rotatedGrid4, 4);
-            else
-                rotatedGrid = Arrays.copyOf(rotatedGrid3, 3);*/
-            rotatedGrid = new boolean[size][size];
+
+            boolean[][] rotatedGrid = new boolean[size][size];
 
             for (int i = 0; i < size; i++) {
                 for (int j = 0; j < size; j++) {
-                    //left
-                    //rotatedGrid[size - 1 - j][i] = grid[i][j];
-                    //right
                     rotatedGrid[j][size - 1 - i] = grid[i][j];
                 }
             }
@@ -254,16 +206,11 @@ public class Tetromino {
                     }
                 }
             }
-            // if (possible) grid = rotatedGrid;
             if (possible) {
                 grid = Arrays.copyOf(rotatedGrid, rotatedGrid.length);
                 moved = true;
             }
         }
-    }
-
-    public void render(float deltaTime) {
-
     }
 
     private void logBooleanArray(boolean[][] ar, String name) {
