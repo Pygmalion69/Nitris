@@ -139,7 +139,7 @@ public class WorldController {
         return tbl;
     }
 
-    public void update(float deltaTime) {
+    public void update() {
 
         switch (gameState) {
             case Start:
@@ -202,7 +202,7 @@ public class WorldController {
                 }
                 if (!moved)
                     tetromino.fall(false);
-                gameWorld.update(deltaTime, tetromino);
+                gameWorld.update(tetromino);
                 break;
             case GameOver:
                 checkMenuControls();
@@ -358,7 +358,7 @@ public class WorldController {
         }
     }
 
-    static enum GameState {
+    enum GameState {
         Intro, Start, Running, GameOver, Options
     }
 

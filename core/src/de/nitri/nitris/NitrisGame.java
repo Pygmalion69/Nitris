@@ -3,8 +3,6 @@ package de.nitri.nitris;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 
 public class NitrisGame extends ApplicationAdapter {
 
@@ -19,11 +17,6 @@ public class NitrisGame extends ApplicationAdapter {
     public static final String TEXTURE_ATLAS_OBJECTS = "images/helfris.atlas";
 
     private boolean paused;
-    private GameWorld gameWorld;
-    private float timeSpent;
-    private float fps = 60;
-    private FrameBuffer frameBuffer;
-    private SpriteBatch fbBatch;
     protected int screenWidth;
     protected int screenHeight;
 
@@ -35,7 +28,7 @@ public class NitrisGame extends ApplicationAdapter {
         screenWidth = Gdx.graphics.getWidth();
         screenHeight = Gdx.graphics.getHeight();
 
-        gameWorld = new GameWorld();
+        GameWorld gameWorld = new GameWorld();
 
         worldController = new WorldController(this, gameWorld);
         worldRenderer = new WorldRenderer(gameWorld, worldController, gameWidth, gameHeight);
@@ -49,7 +42,7 @@ public class NitrisGame extends ApplicationAdapter {
         super.render();
 
         if (!paused) {
-            worldController.update(Gdx.graphics.getDeltaTime());
+            worldController.update();
         }
 
         worldRenderer.render();

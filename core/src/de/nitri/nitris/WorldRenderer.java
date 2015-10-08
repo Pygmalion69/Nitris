@@ -364,7 +364,6 @@ public class WorldRenderer implements Disposable {
         downArrowScreenY = toScreenY(downArrowY);
         rotateArrowScreenX = toScreenX(rotateArrowX);
         rotateArrowScreenY = toScreenY(rotateArrowY);
-        return;
     }
 
     @Override

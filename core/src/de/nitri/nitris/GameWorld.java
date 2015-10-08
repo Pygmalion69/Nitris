@@ -1,9 +1,6 @@
 package de.nitri.nitris;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 
 import java.util.Arrays;
 
@@ -15,8 +12,6 @@ import de.nitri.nitris.objects.Tetromino;
 public class GameWorld {
 
     public static final String TAG = GameWorld.class.getName();
-    private final FrameBuffer frameBuffer;
-    private final SpriteBatch fbBatch;
     public int[][] playfield = new int[22][10]; //used for rendering
     public boolean[][] blocks = new boolean[22][10];  // used for object detection
 
@@ -27,12 +22,6 @@ public class GameWorld {
 
     public int score = 0;
     public int level = 0;
-
-    public GameWorld() {
-        frameBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, 400, 600, false);
-        fbBatch = new SpriteBatch();
-
-    }
 
     public void setTetrominoGrid(boolean[][] tetrominoGrid) {
         this.tetrominoGrid = tetrominoGrid;
@@ -48,7 +37,7 @@ public class GameWorld {
 
     private boolean[][] tetrominoGrid;
 
-    public synchronized void update(float deltaTime, Tetromino tetromino) {
+    public synchronized void update(Tetromino tetromino) {
         if (null != tetromino) {
             int posX = tetromino.posX;
             int posY = tetromino.posY;
