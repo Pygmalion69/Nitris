@@ -7,6 +7,7 @@ ext {
 	mainClassName = "de.nitri.helfris.IOSLauncher"
 }
 
+/*
 // Extracts native libs (*.a) from the native-ios.jar and places them
 // under build/libs/ios/.
 task copyNatives << {
@@ -33,8 +34,9 @@ task updateRoboVMXML << {
   }
   
   // Find all native (*.a) libraries beneath libs
-  def libtree = fileTree(dir: 'build/libs', include: '**/*.a')
-  
+  */
+  //def libtree = fileTree(dir: 'build/libs', include: '**/*.a')
+  /*
   def config = new groovy.util.XmlParser().parse(xml)
   config.libs.each {libs ->
       libs.children().clear()
@@ -52,6 +54,7 @@ task updateRoboVMXML << {
 updateRoboVMXML.dependsOn copyNatives
 build.dependsOn updateRoboVMXML
 tasks.eclipse.dependsOn updateRoboVMXML
+*/
 
 launchIPhoneSimulator.dependsOn build
 launchIPadSimulator.dependsOn build
