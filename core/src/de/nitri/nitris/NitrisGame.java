@@ -8,13 +8,13 @@ public class NitrisGame extends ApplicationAdapter {
 
     private static final String TAG = NitrisGame.class.getName();
 
-    private WorldController worldController;
-    protected WorldRenderer worldRenderer;
+    WorldController worldController;
+    WorldRenderer worldRenderer;
 
-    protected final float gameWidth = 400f;
-    private final float gameHeight = 640f;
+    final float gameWidth = 400f;
+    final float gameHeight = 640f;
 
-    public static final String TEXTURE_ATLAS_OBJECTS = "images/nitris.atlas";
+    static final String TEXTURE_ATLAS_OBJECTS = "images/nitris.atlas";
 
     private boolean paused;
     protected int screenWidth;
