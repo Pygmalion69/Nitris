@@ -14,7 +14,7 @@ public class NitrisGame extends ApplicationAdapter {
     protected final float gameWidth = 400f;
     private final float gameHeight = 640f;
 
-    public static final String TEXTURE_ATLAS_OBJECTS = "images/helfris.atlas";
+    public static final String TEXTURE_ATLAS_OBJECTS = "images/nitris.atlas";
 
     private boolean paused;
     protected int screenWidth;

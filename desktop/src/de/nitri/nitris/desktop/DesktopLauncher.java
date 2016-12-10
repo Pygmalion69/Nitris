@@ -19,7 +19,7 @@ public class DesktopLauncher {
             settings.edgePadding = false;
             settings.duplicatePadding = true;
             settings.debug = false;
-            TexturePacker.process(settings, "assets-raw/images", "images", "helfris.atlas");
+            TexturePacker.process(settings, "assets-raw/images", "images", "nitris.atlas");
         }
 
         LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
