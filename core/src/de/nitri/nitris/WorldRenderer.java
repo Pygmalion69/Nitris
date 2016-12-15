@@ -1,7 +1,6 @@
 package de.nitri.nitris;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -21,7 +20,7 @@ import de.nitri.nitris.objects.Tetromino;
 /**
  * Created by helfrich on 4/2/15.
  */
-public class WorldRenderer implements Disposable {
+class WorldRenderer implements Disposable {
 
     private final float gameWidth;
     private final float gameHeight;
@@ -31,18 +30,17 @@ public class WorldRenderer implements Disposable {
     private GameWorld gameWorld;
     private ShapeRenderer shapeRenderer;
 
-    public static final int FIELD_MARGIN_LEFT = 20;
-    public static final int FIELD_MARGIN_TOP = 20;
+    private static final int FIELD_MARGIN_LEFT = 20;
+    private static final int FIELD_MARGIN_TOP = 20;
     private static final int CONTROL_VERTICAL_MARGIN = 5;
 
-    public static final int BLOCK_WIDTH = 20;
-    public static final int CONTROL_WIDTH = 100;
+    private static final int BLOCK_WIDTH = 20;
+    private static final int CONTROL_WIDTH = 100;
     private BitmapFont gameOverFont;
 
     private static final String GAME_OVER = "GAME OVER";
     private static final String SCORE = "Score";
     private static final String LEVEL = "Level";
-    private float centerY;
     private FrameBuffer frameBuffer;
     private SpriteBatch fbBatch;
     private int playfieldWidth;
@@ -52,38 +50,38 @@ public class WorldRenderer implements Disposable {
     private int marginRightCenterX;
     private int marginBottomCenterY;
     private BitmapFont scoreFont;
-    public int leftArrowX;
-    public int leftArrowY;
-    public int rightArrowX;
-    public int rightArrowY;
-    public int rotateArrowX;
-    public int rotateArrowY;
-    public int downArrowX;
-    public int downArrowY;
-    public int playX;
-    public int playY;
-    public int optionsX;
-    public int optionsY;
+    private int leftArrowX;
+    private int leftArrowY;
+    private int rightArrowX;
+    private int rightArrowY;
+    private int rotateArrowX;
+    private int rotateArrowY;
+    private int downArrowX;
+    private int downArrowY;
+    private int playX;
+    private int playY;
+    private int optionsX;
+    private int optionsY;
     private GlyphLayout gameOverGlyphLayout;
     private GlyphLayout scoreGlyphLayout;
     private Vector3 worldVector;
     private Vector3 screenVector;
-    public float controlScreenWidth;
-    public float controlScreenHeight;
-    public float playScreenX;
-    public float playScreenY;
-    public float optionsScreenY;
-    public float optionsScreenX;
-    public float leftArrowScreenX;
-    public float leftArrowScreenY;
-    public float rightArrowScreenX;
-    public float rightArrowScreenY;
-    public float downArrowScreenX;
-    public float downArrowScreenY;
-    public float rotateArrowScreenX;
-    public float rotateArrowScreenY;
+    float controlScreenWidth;
+    float controlScreenHeight;
+    float playScreenX;
+    float playScreenY;
+    float optionsScreenY;
+    float optionsScreenX;
+    float leftArrowScreenX;
+    float leftArrowScreenY;
+    float rightArrowScreenX;
+    float rightArrowScreenY;
+    float downArrowScreenX;
+    float downArrowScreenY;
+    float rotateArrowScreenX;
+    float rotateArrowScreenY;
 
-    public WorldRenderer(GameWorld gameWorld, WorldController worldController, float gameWidth, float gameHeight) {
+    WorldRenderer(GameWorld gameWorld, WorldController worldController, float gameWidth, float gameHeight) {
         this.gameWorld = gameWorld;
         this.worldController = worldController;
         this.gameWidth = gameWidth;
@@ -102,7 +100,6 @@ public class WorldRenderer implements Disposable {
         batch.setProjectionMatrix(camera.combined);
         shapeRenderer = new ShapeRenderer();
         shapeRenderer.setProjectionMatrix(camera.combined);
-        Assets.instance.init(new AssetManager());
 
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(
                 Gdx.files.internal("zorque.ttf"));
@@ -116,7 +113,6 @@ public class WorldRenderer implements Disposable {
         parameter.flip = true;
         scoreFont = generator.generateFont(parameter);
 
-        centerY = gameHeight / 2;
         frameBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, (int) gameWidth, (int) gameHeight, false);
         fbBatch = new SpriteBatch();
 
@@ -152,10 +148,9 @@ public class WorldRenderer implements Disposable {
         scoreGlyphLayout = new GlyphLayout();
 
 
-
     }
 
-    public void render() {
+    void render() {
 
         renderWorld();
         camera.update();
@@ -282,7 +277,7 @@ public class WorldRenderer implements Disposable {
         }
     }
 
-    public synchronized void renderPlayfield() {
+    private synchronized void renderPlayfield() {
 
         //logIntArray(playfield, "playfield");
 
@@ -342,7 +337,7 @@ public class WorldRenderer implements Disposable {
     }
 
     @SuppressWarnings("SuspiciousNameCombination")
-    void resize(int width, int height) {
+    void resize() {
         controlScreenWidth = toScreenX(CONTROL_WIDTH);
         controlScreenHeight = toScreenY(CONTROL_WIDTH);
         playScreenX = toScreenX(playX);

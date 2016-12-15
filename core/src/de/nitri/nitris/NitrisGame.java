@@ -3,6 +3,7 @@ package de.nitri.nitris;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 
 public class NitrisGame extends Game {
 
@@ -31,6 +32,8 @@ public class NitrisGame extends Game {
 
         //screenWidth = Gdx.graphics.getWidth();
         //screenHeight = Gdx.graphics.getHeight();
+
+        Assets.instance.init(new AssetManager());
 
         GameWorld gameWorld = new GameWorld();
 

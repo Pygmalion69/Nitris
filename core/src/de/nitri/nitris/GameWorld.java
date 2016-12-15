@@ -11,7 +11,7 @@ import de.nitri.nitris.objects.Tetromino;
  */
 public class GameWorld {
 
-    public static final String TAG = GameWorld.class.getName();
+    private static final String TAG = GameWorld.class.getName();
     public int[][] playfield = new int[22][10]; //used for rendering
     public boolean[][] blocks = new boolean[22][10];  // used for object detection
 
@@ -20,7 +20,7 @@ public class GameWorld {
     private int oldPosX;
     private int oldPosY;
 
-    public int score = 0;
+    int score = 0;
     public int level = 0;
 
     public void setTetrominoGrid(boolean[][] tetrominoGrid) {
@@ -28,7 +28,7 @@ public class GameWorld {
         oldGrid = null;
     }
 
-    public void reset() {
+    void reset() {
         score = 0;
         level = 0;
         playfield = new int[22][10]; //used for rendering
@@ -37,7 +37,7 @@ public class GameWorld {
 
     private boolean[][] tetrominoGrid;
 
-    public synchronized void update(Tetromino tetromino) {
+    synchronized void update(Tetromino tetromino) {
         if (null != tetromino) {
             int posX = tetromino.posX;
             int posY = tetromino.posY;
@@ -97,6 +97,6 @@ public class GameWorld {
         Gdx.app.log(TAG, "");
     }
 
-    public void dispose() {
+    void dispose() {
     }
 }

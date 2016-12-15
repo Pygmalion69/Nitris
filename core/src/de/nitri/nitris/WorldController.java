@@ -1,22 +1,11 @@
 package de.nitri.nitris;
 
-import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Sound;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.scenes.scene2d.Actor;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.CheckBox;
-import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.ui.Window;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import java.util.Random;
 
@@ -33,13 +22,13 @@ public class WorldController {
     private GameWorld gameWorld;
     public boolean tetrominoSpawned = false;
     private Tetromino tetromino;
-    public GameState gameState;
-    public Tetromino nextTetromino;
+    GameState gameState;
+    Tetromino nextTetromino;
     private int levelRowsRemoved;
     private Skin skinLibGdx;
     private Preferences prefs;
 
-    public WorldController(NitrisGame game, GameWorld gameWorld) {
+    WorldController(NitrisGame game, GameWorld gameWorld) {
         this.game = game;
         this.gameWorld = gameWorld;
         init();
@@ -59,7 +48,7 @@ public class WorldController {
 
     }
 
-    public void update() {
+    void update() {
 
         switch (gameState) {
             case Start:
@@ -255,7 +244,7 @@ public class WorldController {
      * @return Integer between min and max, inclusive.
      * @see java.util.Random#nextInt(int)
      */
-    public static int randInt(int min, int max) {
+    private static int randInt(int min, int max) {
 
         // NOTE: Usually this should be a field rather than a method
         // variable so that it is not re-seeded every call.
@@ -267,7 +256,7 @@ public class WorldController {
         return rand.nextInt((max - min) + 1) + min;
     }
 
-    public void dispose() {
+    void dispose() {
         gameWorld.dispose();
         if (skinLibGdx != null) {
             skinLibGdx.dispose();
@@ -275,7 +264,7 @@ public class WorldController {
     }
 
     enum GameState {
-        Intro, Start, Running, GameOver, Options
+        Start, Running, GameOver
     }
 
 }

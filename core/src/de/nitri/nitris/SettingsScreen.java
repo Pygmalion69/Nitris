@@ -4,7 +4,6 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -21,18 +20,14 @@ import com.badlogic.gdx.utils.Align;
  * Created by helfrich on 12/12/2016.
  */
 
-public class SettingsScreen implements Screen {
+class SettingsScreen implements Screen {
 
-    private final FreeTypeFontGenerator generator;
     private final BitmapFont infoFont;
     private final OrthographicCamera camera;
     private final SpriteBatch batch;
     private final ShapeRenderer shapeRenderer;
-    private final GlyphLayout infoGlyphLayout;
-    private final GlyphLayout linkGlyphLayout;
     private final BitmapFont linkFont;
     private final Preferences prefs;
-    private final TextureAtlas.AtlasRegion greyBox;
     private final int checkboxX;
     private final int checkboxY;
     //private final int checkboxWidth;
@@ -41,8 +36,6 @@ public class SettingsScreen implements Screen {
     private int checkboxScreenHeight;
     private int checkboxScreenX;
     private int checkboxScreenY;
-    private final TextureAtlas.AtlasRegion blueCheckmark;
-    private final GlyphLayout soundGlyphLayout;
     private final int soundLabelX;
     private final int soundLabelY;
     private final int leftArrowX;
@@ -57,7 +50,6 @@ public class SettingsScreen implements Screen {
     private Vector3 screenVector;
     private final float gameWidth;
     private final float gameHeight;
-    private float textWidth;
     private float textX;
     private int textY;
 
@@ -94,7 +86,7 @@ public class SettingsScreen implements Screen {
         worldVector = new Vector3();
         screenVector = new Vector3();
         FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        generator = new FreeTypeFontGenerator(Gdx.files.internal("kenvector_future.ttf"));
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("kenvector_future.ttf"));
         parameter.size = 16;
         parameter.flip = true;
         infoFont = generator.generateFont(parameter);
@@ -105,15 +97,15 @@ public class SettingsScreen implements Screen {
         batch.setProjectionMatrix(camera.combined);
         shapeRenderer = new ShapeRenderer();
         shapeRenderer.setProjectionMatrix(camera.combined);
-        Assets.instance.init(new AssetManager());
+
 
         if (Gdx.app.getType() != Application.ApplicationType.Android && Gdx.app.getType() != Application.ApplicationType.iOS) {
             infoText += "\n\nUse the arrow keys to move\nthe piece ('up' to rotate\nright, 'down' to accelerate).";
         }
-        infoGlyphLayout = new GlyphLayout(infoFont, infoText, Color.WHITE, gameWidth * .8f, Align.left, true);
-        linkGlyphLayout = new GlyphLayout(linkFont, linkText, Color.BLUE, gameWidth * .8f, Align.left, true);
+        GlyphLayout infoGlyphLayout = new GlyphLayout(infoFont, infoText, Color.WHITE, gameWidth * .8f, Align.left, true);
+        GlyphLayout linkGlyphLayout = new GlyphLayout(linkFont, linkText, Color.BLUE, gameWidth * .8f, Align.left, true);
 
-        textWidth = infoGlyphLayout.width;
+        float textWidth = infoGlyphLayout.width;
         textX = (gameWidth - textWidth) / 2;
         textY = 100;
 
@@ -127,10 +119,7 @@ public class SettingsScreen implements Screen {
         linkScreenX = toScreenX(linkX);
         linkScreenY = toScreenY(linkY);
 
-        greyBox = Assets.instance.settings.elementGreyBox;
-        blueCheckmark = Assets.instance.settings.elementBlueCheckmark;
-
-        soundGlyphLayout = new GlyphLayout(infoFont, soundText);
+        GlyphLayout soundGlyphLayout = new GlyphLayout(infoFont, soundText);
 
         //checkboxWidth = greyBox.getRegionWidth();
         //checkboxHeight = greyBox.getRegionHeight();
@@ -148,8 +137,7 @@ public class SettingsScreen implements Screen {
 
         leftArrow = Assets.instance.controls.arrowLeft;
 
-        leftArrowX = (int) (gameWidth / 2 - CONTROL_WIDTH / 2);
-        int test = (int) ((gameWidth - CONTROL_WIDTH) / 2);
+        leftArrowX = (int) ((gameWidth - CONTROL_WIDTH) / 2);
         leftArrowY = (int) (gameHeight - 6 - CONTROL_WIDTH);
 
         leftArrowScreenX = toScreenX(leftArrowX);
