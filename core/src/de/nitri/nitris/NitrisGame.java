@@ -13,19 +13,21 @@ public class NitrisGame extends Game {
 
     static final String TEXTURE_ATLAS_OBJECTS = "images/nitris.atlas";
 
-
     //private int screenWidth;
     //private int screenHeight;
 
-    private GameScreen gameScreen;
+    GameScreen gameScreen;
+    float gameHeight;
+    float gameWidth;
+    SettingsScreen settingsScreen;
 
     @Override
     public void create() {
 
         Gdx.app.setLogLevel(Application.LOG_DEBUG);
 
-        float gameWidth = 400f;
-        float gameHeight = 640f;
+        gameWidth = 400f;
+        gameHeight = 640f;
 
         //screenWidth = Gdx.graphics.getWidth();
         //screenHeight = Gdx.graphics.getHeight();
@@ -38,6 +40,10 @@ public class NitrisGame extends Game {
 
         gameScreen = new GameScreen(this);
 
+        settingsScreen = new SettingsScreen(this);
+
+        //TODO:
+        //setScreen(settingsScreen);
         setScreen(gameScreen);
 
     }

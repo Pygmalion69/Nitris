@@ -11,34 +11,36 @@ import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas.AtlasRegion;
 import com.badlogic.gdx.utils.Disposable;
 
-public class Assets implements Disposable, AssetErrorListener {
+class Assets implements Disposable, AssetErrorListener {
 
-    public static final String TAG = Assets.class.getName();
+    static final String TAG = Assets.class.getName();
 
-    public static final Assets instance = new Assets();
+    static final Assets instance = new Assets();
 
     private AssetManager assetManager;
 
-    public AssetTetromino tetromino;
+    AssetTetromino tetromino;
 
-    public AssetControls controls;
-    public AssetSounds sounds;
+    AssetControls controls;
+    AssetSounds sounds;
+
+    AssetSettings settings;
 
     private Assets() {
     }
 
-    public class AssetTetromino {
+     class AssetTetromino {
 
-        public final AtlasRegion elementBlueSquare;
-        public final AtlasRegion elementCyanSquare;
-        public final AtlasRegion elementGreenSquare;
-        public final AtlasRegion elementGreySquare;
-        public final AtlasRegion elementOrangeSquare;
-        public final AtlasRegion elementPurpleSquare;
-        public final AtlasRegion elementRedSquare;
-        public final AtlasRegion elementYellowSquare;
+        final AtlasRegion elementBlueSquare;
+        final AtlasRegion elementCyanSquare;
+        final AtlasRegion elementGreenSquare;
+        final AtlasRegion elementGreySquare;
+        final AtlasRegion elementOrangeSquare;
+        final AtlasRegion elementPurpleSquare;
+        final AtlasRegion elementRedSquare;
+        final AtlasRegion elementYellowSquare;
 
-        public AssetTetromino(TextureAtlas atlas) {
+        AssetTetromino(TextureAtlas atlas) {
             elementBlueSquare = atlas.findRegion("element_blue_square");
             elementBlueSquare.flip(false, true);
             elementCyanSquare = atlas.findRegion("element_cyan_square");
@@ -59,15 +61,15 @@ public class Assets implements Disposable, AssetErrorListener {
 
     }
 
-    public class AssetControls {
-        public final AtlasRegion arrowLeft;
-        public final AtlasRegion arrowRight;
-        public final AtlasRegion arrowDown;
-        public final AtlasRegion arrowRotate;
-        public final AtlasRegion play;
-        public final AtlasRegion options;
+     class AssetControls {
+        final AtlasRegion arrowLeft;
+        final AtlasRegion arrowRight;
+        final AtlasRegion arrowDown;
+        final AtlasRegion arrowRotate;
+        final AtlasRegion play;
+        final AtlasRegion options;
 
-        public AssetControls(TextureAtlas atlas) {
+        AssetControls(TextureAtlas atlas) {
             arrowLeft = atlas.findRegion("arrow_left");
             arrowLeft.flip(false, true);
             arrowRight = atlas.findRegion("arrow_right");
@@ -81,7 +83,19 @@ public class Assets implements Disposable, AssetErrorListener {
         }
     }
 
-    public void init(AssetManager assetManager) {
+    class AssetSettings {
+        final AtlasRegion elementGreyBox;
+        final AtlasRegion elementBlueCheckmark;
+
+        AssetSettings(TextureAtlas atlas) {
+            elementGreyBox = atlas.findRegion("grey_box");
+            elementGreyBox.flip(false, true);
+            elementBlueCheckmark = atlas.findRegion("blue_checkmark");
+            elementBlueCheckmark.flip(false, true);
+        }
+    }
+
+    void init(AssetManager assetManager) {
         this.assetManager = assetManager;
         // set asset manager error handler
         assetManager.setErrorListener(this);
@@ -113,18 +127,19 @@ public class Assets implements Disposable, AssetErrorListener {
 
         controls = new AssetControls(atlas);
 
+        settings = new AssetSettings(atlas);
 
         sounds = new AssetSounds();
 
     }
 
-    public class AssetSounds {
+     class AssetSounds {
 
-        public final Sound levelUp;
-        public final Sound rowCleared;
-        public final Sound gameOver;
+        final Sound levelUp;
+        final Sound rowCleared;
+        final Sound gameOver;
 
-        public AssetSounds() {
+        AssetSounds() {
             levelUp = assetManager.get("sounds/level_up.wav", Sound.class);
             rowCleared = assetManager.get("sounds/row_cleared.wav", Sound.class);
             gameOver = assetManager.get("sounds/game_over.wav", Sound.class);

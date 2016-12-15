@@ -130,8 +130,6 @@ public class WorldRenderer implements Disposable {
 
         marginBottomCenterY = (int) (gameHeight - ((gameHeight - (FIELD_MARGIN_TOP + playfieldHeight)) / 2));
 
-
-
         leftArrowX = (int) (gameWidth / 4) - (CONTROL_WIDTH / 2);
         leftArrowY = marginBottomCenterY - (CONTROL_WIDTH / 2);
 
@@ -214,12 +212,6 @@ public class WorldRenderer implements Disposable {
         fbBatch.begin();
         fbBatch.draw(frameBuffer.getColorBufferTexture(), 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight(), 0, 0, 1, 1);
         fbBatch.end();
-
-        if (worldController.windowStage != null) {
-
-            worldController.windowStage.draw();
-
-        }
 
     }
 
@@ -349,7 +341,8 @@ public class WorldRenderer implements Disposable {
         return screenVector.y;
     }
 
-    public void resize(int width, int height) {
+    @SuppressWarnings("SuspiciousNameCombination")
+    void resize(int width, int height) {
         controlScreenWidth = toScreenX(CONTROL_WIDTH);
         controlScreenHeight = toScreenY(CONTROL_WIDTH);
         playScreenX = toScreenX(playX);

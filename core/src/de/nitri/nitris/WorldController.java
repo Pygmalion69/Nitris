@@ -37,11 +37,7 @@ public class WorldController {
     public Tetromino nextTetromino;
     private int levelRowsRemoved;
     private Skin skinLibGdx;
-    private Window winOptions;
-    public Stage windowStage;
     private Preferences prefs;
-    private float winScaleFactor;
-
 
     public WorldController(NitrisGame game, GameWorld gameWorld) {
         this.game = game;
@@ -59,84 +55,8 @@ public class WorldController {
         nextTetromino = new Tetromino(gameWorld, this);
         levelRowsRemoved = 0;
 
-        windowStage = new Stage();
-
         skinLibGdx = new Skin(Gdx.files.internal("images/uiskin.json"), new TextureAtlas("images/uiskin.atlas"));
 
-        winOptions = new Window("Nitris", skinLibGdx);
-
-        float width = Gdx.graphics.getWidth();
-
-        winScaleFactor = (1/300f) * width - 1/3f;
-
-        winOptions.setScale(winScaleFactor, winScaleFactor);
-        winOptions.add(buildInfoText());
-        winOptions.row();
-        winOptions.add(buildOptions());
-        winOptions.pack();
-        winOptions.setColor(1, 1, 1, 0.8f);
-        winOptions.setPosition(Gdx.graphics.getWidth() - winOptions.getWidth() * winScaleFactor - 50, 50);
-        winOptions.setVisible(false);
-        windowStage.addActor(winOptions);
-
-        windowStage.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                //Gdx.app.log("x", String.valueOf(x));
-                //Gdx.app.log("y", String.valueOf(y));
-                if (x < winOptions.getX() || x > winOptions.getX() + winOptions.getWidth() * winScaleFactor ||
-                        y < winOptions.getY() || y > winOptions.getY() + winOptions.getY() + winOptions.getHeight() * winScaleFactor) {
-                    winOptions.setVisible(false);
-                    Gdx.input.setInputProcessor(null);
-                }
-            }
-        });
-    }
-
-    private Table buildOptions() {
-        Table tbl = new Table();
-        tbl.columnDefaults(0).padRight(10);
-        tbl.columnDefaults(1).padRight(10);
-        Label lblSound = new Label("Sound", skinLibGdx);
-
-        final CheckBox chkSound = new CheckBox("", skinLibGdx);
-
-        chkSound.setChecked(prefs.getBoolean("sound"));
-
-        chkSound.addListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                prefs.putBoolean("sound", chkSound.isChecked());
-                prefs.flush();
-            }
-        });
-        tbl.add(chkSound);
-        tbl.add(lblSound);
-        return tbl;
-    }
-
-    private Table buildInfoText() {
-        Table tbl = new Table();
-        Label lblText = new Label("Nitris by Pygmalion", skinLibGdx, "default-font", Color.WHITE);
-        tbl.add(lblText);
-        tbl.row();
-        Label lblUrl = new Label("pygmalion.nitri.de", skinLibGdx);
-        lblUrl.setColor(0, 0, 1, 1);
-        lblUrl.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                Gdx.net.openURI("http://pygmalion.nitri.de");
-            }
-        });
-        tbl.add(lblUrl);
-        tbl.row();
-        if (Gdx.app.getType() != Application.ApplicationType.Android && Gdx.app.getType() != Application.ApplicationType.iOS) {
-            Label lblHelp = new Label("Use the arrow keys to move the piece ('up' to rotate right, 'down' to accelerate.)", skinLibGdx);
-            lblHelp.setWrap(true);
-            tbl.add(lblHelp).width(160f);
-            tbl.row();
-        }
-        return tbl;
     }
 
     public void update() {
@@ -172,19 +92,19 @@ public class WorldController {
                     if (gx > game.worldRenderer.leftArrowScreenX &&
                             gx < game.worldRenderer.leftArrowScreenX + game.worldRenderer.controlScreenWidth &&
                             gy > game.worldRenderer.leftArrowScreenY &&
-                            gy < game.worldRenderer.leftArrowScreenY +  game.worldRenderer.controlScreenWidth) {
+                            gy < game.worldRenderer.leftArrowScreenY + game.worldRenderer.controlScreenWidth) {
                         tetromino.move(-1, 0);
                         moved = true;
                     } else if (gx > game.worldRenderer.rightArrowScreenX &&
-                            gx < game.worldRenderer.rightArrowScreenX +  game.worldRenderer.controlScreenWidth &&
+                            gx < game.worldRenderer.rightArrowScreenX + game.worldRenderer.controlScreenWidth &&
                             gy > game.worldRenderer.rightArrowScreenY &&
-                            gy < game.worldRenderer.rightArrowScreenY +  game.worldRenderer.controlScreenWidth) {
+                            gy < game.worldRenderer.rightArrowScreenY + game.worldRenderer.controlScreenWidth) {
                         tetromino.move(1, 0);
                         moved = true;
                     } else if (gx > game.worldRenderer.rotateArrowScreenX &&
-                            gx < game.worldRenderer.rotateArrowScreenY +  game.worldRenderer.controlScreenWidth &&
+                            gx < game.worldRenderer.rotateArrowScreenY + game.worldRenderer.controlScreenWidth &&
                             gy > game.worldRenderer.rotateArrowScreenY &&
-                            gy < game.worldRenderer.rotateArrowScreenY +  game.worldRenderer.controlScreenWidth) {
+                            gy < game.worldRenderer.rotateArrowScreenY + game.worldRenderer.controlScreenWidth) {
                         tetromino.rotate();
                         moved = true;
                     }
@@ -193,7 +113,7 @@ public class WorldController {
                     int gx = Gdx.input.getX();
                     int gy = Gdx.input.getY();
                     if (gx > game.worldRenderer.downArrowScreenX &&
-                            gx < game.worldRenderer.downArrowScreenX +  game.worldRenderer.controlScreenWidth &&
+                            gx < game.worldRenderer.downArrowScreenX + game.worldRenderer.controlScreenWidth &&
                             gy > game.worldRenderer.downArrowScreenY &&
                             gy < game.worldRenderer.downArrowScreenY + game.worldRenderer.controlScreenWidth) {
                         tetromino.fall(true);
@@ -208,7 +128,6 @@ public class WorldController {
                 checkMenuControls();
                 break;
         }
-        windowStage.act();
     }
 
     private void checkMenuControls() {
@@ -226,9 +145,9 @@ public class WorldController {
                     gx < game.worldRenderer.optionsScreenX + game.worldRenderer.controlScreenWidth &&
                     gy > game.worldRenderer.optionsScreenY &&
                     gy < game.worldRenderer.optionsScreenY + game.worldRenderer.controlScreenWidth) {
-                winOptions.setVisible(true);
-
-                Gdx.input.setInputProcessor(windowStage);
+                //winOptions.setVisible(true);
+                //Gdx.input.setInputProcessor(windowStage);
+                game.setScreen(game.settingsScreen);
             }
         }
     }
@@ -352,9 +271,6 @@ public class WorldController {
         gameWorld.dispose();
         if (skinLibGdx != null) {
             skinLibGdx.dispose();
-        }
-        if (windowStage != null) {
-            windowStage.dispose();
         }
     }
 
