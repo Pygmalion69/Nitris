@@ -1,7 +1,8 @@
 apply plugin: "java"
 
-sourceCompatibility = 1.6
+sourceCompatibility = 1.7
 sourceSets.main.java.srcDirs = [ "src/" ]
+sourceSets.main.resources.srcDirs = ["../android/assets"]
 
 project.ext.mainClassName = "de.nitri.helfris.desktop.DesktopLauncher"
 project.ext.assetsDir = new File("../android/assets");
@@ -15,10 +16,10 @@ task run(dependsOn: classes, type: JavaExec) {
 }
 
 task dist(type: Jar) {
-    from files(sourceSets.main.output.classesDir)
+    from files(sourceSets.main.output.classesDirs.filter{})
     from files(sourceSets.main.output.resourcesDir)
     from {configurations.compile.collect {zipTree(it)}}
-    from files(project.assetsDir);
+    from files(project.assetsDir)
  
     manifest {
         attributes 'Main-Class': project.mainClassName
@@ -34,6 +35,7 @@ eclipse {
     }
 }
 
+/*
 task afterEclipseImport(description: "Post processing after project generation", group: "IDE") {
   doLast {
     def classpath = new XmlParser().parse(file(".classpath"))
@@ -43,4 +45,6 @@ task afterEclipseImport(description: "Post processing after project generation",
     printer.setPreserveWhitespace(true)
     printer.print(classpath)
   }
+
 }
+*/
